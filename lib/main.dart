@@ -79,6 +79,7 @@ class MainView extends StatelessWidget {
     ];
 
     return ListView(children: <Widget>[
+      // Runs through every item in the list.
       for (var item in list)
         Card(
           child: ListTile(
