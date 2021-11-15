@@ -49,13 +49,21 @@ class MainView extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       centerTitle: true,
       actions: [
-        IconButton(
-          icon: Icon(Icons.more_vert),
-          color: Colors.black,
-          onPressed: () {},
-        ),
+        _dropDown(
+          context,
+        )
       ],
     );
+  }
+
+  Widget _dropDown(BuildContext context) {
+    return PopupMenuButton(
+        icon: Icon(Icons.more_vert, color: Colors.black),
+        itemBuilder: (context) => [
+              PopupMenuItem(child: Text('All')),
+              PopupMenuItem(child: Text('Done')),
+              PopupMenuItem(child: Text('Undone'))
+            ]);
   }
 
   Widget _list(BuildContext context) {
