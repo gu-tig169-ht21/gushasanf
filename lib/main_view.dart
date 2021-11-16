@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
-import 'second_view.dart';
 import 'package:provider/provider.dart';
+import './model.dart';
+import './second_view.dart';
+import './todo_list.dart';
 
-class MyState extends ChangeNotifier {
-  // Lite kod
-}
-
-class MainView extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return MainViewState();
-  }
-}
-
-class MainViewState extends State<StatefulWidget> {
+class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      body: _list(context),
+      body: Consumer<MyState>(
+        builder: (context, state, child) => TodoList(state.list),
+      ),
       floatingActionButton: _floatingAction(context),
     );
   }
 
+  // Appbar with some styling according to the theme
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
       title: Text('TIG169 TODO', style: Theme.of(context).textTheme.headline1),
@@ -33,6 +27,7 @@ class MainViewState extends State<StatefulWidget> {
     );
   }
 
+  // Dropdown menu for sorting items
   Widget _dropDown(BuildContext context) {
     return PopupMenuButton(
         icon: Icon(Icons.more_vert, color: Colors.black),
@@ -43,56 +38,7 @@ class MainViewState extends State<StatefulWidget> {
             ]);
   }
 
-  Widget _list(BuildContext context) {
-    var clean = Todo(name: 'Clean');
-    var book = Todo(name: 'Write a book');
-    var medi = Todo(name: 'Meditate', status: true);
-    var walk = Todo(name: 'Walk');
-    var run = Todo(name: 'Run');
-    var sleep = Todo(name: 'Sleep');
-
-    var list = [
-      clean,
-      book,
-      medi,
-      walk,
-      run,
-      sleep,
-    ];
-
-    return StatefulBuilder(
-      builder: (context, setState) => (ListView(
-        children: <Widget>[
-          // Runs through every item in the list.
-          for (var item in list)
-            Card(
-              child: ListTile(
-                  leading: Checkbox(
-                    value: item.status,
-                    onChanged: (bool? choice) {
-                      setState(() {
-                        item.status = choice;
-                      });
-                    },
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      setState(() {
-                        list.remove(item);
-                      });
-                    },
-                  ),
-                  title: Text(
-                    item.name,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  )),
-            ),
-        ],
-      )),
-    );
-  }
-
+  // Button for navigating to secondview
   Widget _floatingAction(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
@@ -105,18 +51,5 @@ class MainViewState extends State<StatefulWidget> {
       ),
       backgroundColor: Theme.of(context).backgroundColor,
     );
-  }
-}
-
-// ----------------------------------------------------------------------
-// The class todo
-class Todo {
-  final String name;
-  bool? status;
-
-  Todo({required this.name, this.status = false});
-
-  set isCompleted(bool value) {
-    isCompleted = value;
   }
 }

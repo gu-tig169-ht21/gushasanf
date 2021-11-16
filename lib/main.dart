@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
-
-import 'main_view.dart';
+import 'package:provider/provider.dart';
+import './main_view.dart';
+import './model.dart';
 
 void main() {
-  runApp(const MyApp());
+  var state = MyState();
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => state,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  // Root of the application
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
