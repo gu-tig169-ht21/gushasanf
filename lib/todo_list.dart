@@ -27,8 +27,8 @@ class TodoList extends StatelessWidget {
         ),
         // Text of the todo in the middle of each card
         title: Text(item.name,
-            // Text without a line through if todo is not done
-            // and text with a line through if todo is done
+            // Text without a line through if todo is not done or
+            // Text with a line through if todo is done
             style: item.status == false
                 ? Theme.of(context).textTheme.bodyText1
                 : Theme.of(context).textTheme.bodyText2),
