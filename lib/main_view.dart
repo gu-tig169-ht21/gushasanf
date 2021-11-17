@@ -33,7 +33,6 @@ class MainView extends StatelessWidget {
   Widget _dropDown(BuildContext context) {
     return PopupMenuButton(
         icon: Icon(Icons.more_vert, color: Colors.black),
-        // kanske inte ska vara "String" här
         onSelected: (String value) {
           Provider.of<MyState>(context, listen: false).setFilterBy(value);
         },
@@ -71,7 +70,6 @@ class MainView extends StatelessWidget {
     if (filterBy == 'Undone') {
       return list.where((item) => item.status == false).toList();
     }
-
-    return null;
+    throw [''];
   }
 }
