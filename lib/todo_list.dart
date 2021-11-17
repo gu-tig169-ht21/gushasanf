@@ -26,10 +26,12 @@ class TodoList extends StatelessWidget {
           },
         ),
         // Text of the todo in the middle of each card
-        title: Text(
-          item.name,
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
+        title: Text(item.name,
+            // Text without a line through if todo is not done
+            // and text with a line through if todo is done
+            style: item.status == false
+                ? Theme.of(context).textTheme.bodyText1
+                : Theme.of(context).textTheme.bodyText2),
         // Delete button to the right in each card
         trailing: IconButton(
           icon: Icon(Icons.close),
