@@ -37,6 +37,11 @@ class MyApp extends StatelessWidget {
                 fontSize: 24.0,
                 color: Colors.black,
                 fontWeight: FontWeight.normal),
+            bodyText2: TextStyle(
+                fontSize: 24.0,
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+                decoration: TextDecoration.lineThrough),
           ),
         ));
   }
