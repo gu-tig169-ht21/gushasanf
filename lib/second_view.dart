@@ -13,6 +13,7 @@ class SecondViewState extends State<StatefulWidget> {
   final textController = TextEditingController();
   String input = '';
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),

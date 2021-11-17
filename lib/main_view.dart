@@ -5,11 +5,13 @@ import './second_view.dart';
 import './todo_list.dart';
 
 class MainView extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
       body: Consumer<MyState>(
-        builder: (context, state, child) => TodoList(state.list),
+        builder: (context, state, child) =>
+            TodoList(_filterList(state.list, state.filterBy)),
       ),
       floatingActionButton: _floatingAction(context),
     );
@@ -31,10 +33,14 @@ class MainView extends StatelessWidget {
   Widget _dropDown(BuildContext context) {
     return PopupMenuButton(
         icon: Icon(Icons.more_vert, color: Colors.black),
+        // kanske inte ska vara "String" här
+        onSelected: (String value) {
+          Provider.of<MyState>(context, listen: false).setFilterBy(value);
+        },
         itemBuilder: (context) => [
-              PopupMenuItem(child: Text('All')),
-              PopupMenuItem(child: Text('Done')),
-              PopupMenuItem(child: Text('Undone'))
+              PopupMenuItem(child: Text('All'), value: 'All'),
+              PopupMenuItem(child: Text('Done'), value: 'Done'),
+              PopupMenuItem(child: Text('Undone'), value: 'Undone'),
             ]);
   }
 
@@ -51,5 +57,21 @@ class MainView extends StatelessWidget {
       ),
       backgroundColor: Theme.of(context).backgroundColor,
     );
+  }
+
+  // Sorting shown items on mainview based on selected value from dropdown
+  List<Todo> _filterList(list, filterBy) {
+    if (filterBy == 'All') {
+      return list;
+    }
+    if (filterBy == 'Done') {
+      return list.where((item) => item.status == true).toList();
+    }
+
+    if (filterBy == 'Undone') {
+      return list.where((item) => item.status == false).toList();
+    }
+
+    return null;
   }
 }
