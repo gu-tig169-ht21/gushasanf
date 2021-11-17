@@ -19,6 +19,7 @@ class TodoList extends StatelessWidget {
       child: ListTile(
         // Checkbox to the left in each card
         leading: Checkbox(
+          activeColor: Colors.black,
           value: item.status,
           onChanged: (bool? choice) {
             Provider.of<MyState>(context, listen: false)
