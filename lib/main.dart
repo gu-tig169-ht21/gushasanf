@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.grey,
           fontFamily: 'Roboto',
 
+          // Appbar icon theme
+          appBarTheme:
+              AppBarTheme(iconTheme: IconThemeData(color: Colors.black)),
+
           // Text themes
           textTheme: const TextTheme(
             headline1: TextStyle(
@@ -37,10 +41,12 @@ class MyApp extends StatelessWidget {
                 color: Colors.black,
                 fontWeight: FontWeight.normal),
             bodyText2: TextStyle(
-                fontSize: 24.0,
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-                decoration: TextDecoration.lineThrough),
+              fontSize: 24.0,
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+              decoration: TextDecoration.lineThrough,
+              decorationThickness: 2,
+            ),
           ),
         ));
   }

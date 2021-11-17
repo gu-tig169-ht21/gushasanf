@@ -32,7 +32,7 @@ class MainView extends StatelessWidget {
   // Dropdown menu for sorting items
   Widget _dropDown(BuildContext context) {
     return PopupMenuButton(
-        icon: Icon(Icons.more_vert, color: Colors.black),
+        icon: Icon(Icons.more_vert),
         onSelected: (String value) {
           Provider.of<MyState>(context, listen: false).setFilterBy(value);
         },
