@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './model.dart';
+import './main_view.dart';
 
-class SecondView extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return SecondViewState();
-  }
-}
-
-class SecondViewState extends State<StatefulWidget> {
+class SecondView extends StatelessWidget {
   final textController = TextEditingController();
   String input = '';
 
@@ -60,12 +54,11 @@ class SecondViewState extends State<StatefulWidget> {
       children: [
         TextButton.icon(
           onPressed: () {
-            setState(() {
-              input = textController.text;
-              Provider.of<MyState>(context, listen: false)
-                  .addTodo(Todo(name: input));
-              textController.clear();
-            });
+            input = textController.text;
+            Provider.of<MyState>(context, listen: false)
+                .addTodo(Todo(name: input));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MainView()));
           },
           icon: Icon(Icons.add, color: Colors.black),
           label: Text(
