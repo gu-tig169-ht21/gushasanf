@@ -55,10 +55,16 @@ class SecondView extends StatelessWidget {
         TextButton.icon(
           onPressed: () {
             input = textController.text;
-            Provider.of<MyState>(context, listen: false)
-                .addTodo(Todo(name: input));
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MainView()));
+            // Checks if the input contains atleast one letter
+            if (input.contains(RegExp(r'[A-Z]')) ||
+                input.contains(RegExp(r'[a-z]')) == true) {
+              Provider.of<MyState>(context, listen: false)
+                  .addTodo(Todo(name: input));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MainView()));
+            } else {
+              null;
+            }
           },
           icon: Icon(Icons.add, color: Colors.black),
           label: Text(

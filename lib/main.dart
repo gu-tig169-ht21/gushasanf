@@ -5,6 +5,8 @@ import './model.dart';
 
 void main() {
   var state = MyState();
+  state.getList();
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => state,
@@ -16,9 +18,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  // Root of the application
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: MainView(),
         theme: ThemeData(
           // Theme settings

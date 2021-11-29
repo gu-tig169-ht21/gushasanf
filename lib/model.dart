@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
+import './api.dart';
 
 // The class Todo which represents one item to do
 class Todo {
+  String id;
   String name;
-  bool? status;
+  bool status;
 
-  Todo({required this.name, this.status = false});
+  Todo({this.id = '', required this.name, this.status = false});
+
+  // Converting a Todo object to json
+  static Map<String, dynamic> toJson(Todo item) {
+    return {
+      'title': item.name,
+      'done': item.status,
+    };
+  }
+
+  // Converting from json to a Todo object
+  static Todo fromJson(Map<String, dynamic> json) {
+    return Todo(
+      id: json['id'],
+      name: json['title'],
+      status: json['done'],
+    );
+  }
 }
 
 // The class MyState which creates a list of Todos
@@ -18,18 +37,24 @@ class MyState extends ChangeNotifier {
 
   String get filterBy => _filterBy;
 
-  void addTodo(Todo item) {
-    _list.add(item);
+  Future getList() async {
+    List<Todo> list = await Api.getTodos();
+    _list = list;
     notifyListeners();
   }
 
-  void removeTodo(Todo item) {
-    _list.remove(item);
+  void addTodo(Todo item) async {
+    _list = await Api.addTodo(item);
     notifyListeners();
   }
 
-  void changeStatus(Todo item, choice) {
-    item.status = choice;
+  void removeTodo(Todo item) async {
+    _list = await Api.removeTodo(item.id);
+    notifyListeners();
+  }
+
+  void changeStatus(Todo item, choice) async {
+    await Api.updateTodo(item, choice);
     notifyListeners();
   }
 
